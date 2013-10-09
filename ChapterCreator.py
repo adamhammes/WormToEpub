@@ -26,8 +26,9 @@ class Chapter:
         self.setTitle()
         self.setNextLink()
 
+
     def setNextLink(self):
-        self.nextLink = self.soup.find("a", href = True, text = "Next Chapter")
+        self.nextLink = self.soup.find("a", {"rel": "next"})["href"]
 
     def setText(self):
         self.soup.prettify()
