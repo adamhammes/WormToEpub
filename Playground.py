@@ -1,3 +1,3 @@
 __author__ = 'adamhammes'
 
-str = "can I pus
+str = "can I push"
