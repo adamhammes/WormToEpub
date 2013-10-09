@@ -20,6 +20,12 @@ class Chapter:
         self.soup = BeautifulSoup(open(name), convertEntities=BeautifulSoup.HTML_ENTITIES)
         self.setData()
 
+
+    def setData(self):
+        self.setText()
+        self.setTitle()
+        self.setNextLink()
+
     def setNextLink(self):
         self.nextLink = self.soup.find("a", href = True, text = "Next Chapter")
 
@@ -41,10 +47,6 @@ class Chapter:
         index = raw_title.index("|")
         self.title = raw_title[:index-1]
 
-    def setData(self):
-        self.setText()
-        self.setTitle()
-        self.setNextLink()
 
     def writeRawToFile(self, name, delimiter):
         f = open(name, "w")

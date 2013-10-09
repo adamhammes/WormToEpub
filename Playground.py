@@ -1,3 +1,10 @@
 __author__ = 'adamhammes'
 
-str = "can I push"
+from ChapterCreator import Chapter
+
+c = Chapter()
+c.fromFileName("foo.txt")
+
+links = c.soup.find("a", {"rel": "next"})
+
+print links["href"]
