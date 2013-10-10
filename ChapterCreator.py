@@ -38,7 +38,6 @@ class Chapter:
             self.nextLink = None
 
     def setText(self):
-        self.soup.prettify()
         chapter = self.soup.find("article")
         self.text_list = []
 
