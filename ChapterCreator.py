@@ -23,15 +23,19 @@ class Chapter:
 
     def setData(self):
         self.setText()
-        self.setTitle()
+        self.setMetadata()
         self.setNextLink()
 
 
     def setNextLink(self):
         tag = self.soup.find("a", {"title": "Next Chapter"})
         if not tag:
+            # Newer chapters don't store the next link as nicely
             tag = self.soup.find("a", {"rel": "next"})
-        self.nextLink = tag["href"]
+        if tag:
+            self.nextLink = tag["href"]
+        else:
+            self.nextLink = None
 
     def setText(self):
         self.soup.prettify()
@@ -46,10 +50,13 @@ class Chapter:
         self.text_list.pop(0)
         self.text_list.pop(-1)
 
-    def setTitle(self):
+    def setMetadata(self):
         raw_title = self.soup.title.string
         index = raw_title.index("|")
         self.title = raw_title[:index-1]
+
+        index = raw_title.index(" ")
+        self.arc = raw_title[:index]
 
 
     def writeRawToFile(self, name, delimiter):
