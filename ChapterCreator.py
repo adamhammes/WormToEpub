@@ -18,7 +18,6 @@ class Chapter:
         self.setData()
 
     def setData(self):
-        self.soup.prettify(formatter = "minimal")
         self.setText()
         self.setMetadata()
         self.setNextLink()
