@@ -50,7 +50,7 @@ class Chapter:
         self.title = tag["content"].encode("UTF-8")
 
         index = self.title.find(" ")
-        self.arc = self.title[:index].strip().encode("UTF-8")
+        self.arc = self.title[:index].strip()
 
 
     def writeRawToFile(self, name, delimiter):
