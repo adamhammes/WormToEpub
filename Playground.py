@@ -1,6 +1,9 @@
 __author__ = 'adamhammes'
 from ChapterCreator import Chapter
 
-c = Chapter("http://parahumans.wordpress.com/2011/06/11/1-1/")
+c = Chapter("http://parahumans.wordpress.com/2013/09/17/interlude-28/")
+f = open("foo.txt", "w")
 
-print c.title
+print c.arc
+
+c.writeRawToFile("foo.txt", "\n\n")

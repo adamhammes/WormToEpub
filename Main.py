@@ -12,7 +12,7 @@ while nextLink:
     print c.arc
     f.write("<h1><center>" + c.title + "</center></h1>\n")
 
-    for paragraph in c.text_list:
+    for paragraph in c.textList:
         f.write("\t" + paragraph + "\n")
 
     f.write("</h1>")

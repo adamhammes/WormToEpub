@@ -36,15 +36,15 @@ class Chapter:
 
     def setText(self):
         chapter = self.soup.find("article")
-        self.text_list = []
+        self.textList = []
 
         for paragraph in chapter.findAll("p"):
             text = paragraph.encode(formatter="minimal")
             text.strip()
-            self.text_list.append(text)
+            self.textList.append(text)
 
-        self.text_list.pop(0)
-        self.text_list.pop(-1)
+        self.textList.pop(0)
+        self.textList.pop(-1)
 
     def setMetadata(self):
         arcList =  ["Gestation", "Insinuation", "Agitation", "Shell", "Hive",
@@ -68,5 +68,5 @@ class Chapter:
 
     def writeRawToFile(self, name, delimiter):
         f = open(name, "w")
-        for paragraph in self.text_list:
+        for paragraph in self.textList:
             f.write(delimiter + paragraph)
