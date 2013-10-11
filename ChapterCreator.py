@@ -1,7 +1,7 @@
 __author__ = 'adamhammes'
 
 import urllib2
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 import re
 
 class Chapter:
@@ -9,13 +9,14 @@ class Chapter:
         """
         Constructs a Chapter from a URL
         """
+        chunk = SoupStrainer(name = re.compile(r"article|meta"))
         if url:
             r = urllib2.urlopen(url)
             html = r.read()
-            self.soup = BeautifulSoup(html)
+            self.soup = BeautifulSoup(html, parse_only = chunk)
             self.setData()
         if fileName:
-            self.soup = BeautifulSoup(open(fileName))
+            self.soup = BeautifulSoup(open(fileName), parse_only = chunk)
         self.soup.encode(formatter = "minimal")
         self.setData()
 
@@ -35,11 +36,10 @@ class Chapter:
             self.nextLink = None
 
     def setText(self):
-        chapter = self.soup.find("article")
         self.textList = []
 
-        for paragraph in chapter.findAll("p"):
-            text = paragraph.encode(formatter="minimal")
+        for paragraph in self.soup.findAll("p"):
+            text = paragraph.encode("UTF-8")
             text.strip()
             self.textList.append(text)
 
