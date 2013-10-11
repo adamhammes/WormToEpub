@@ -15,6 +15,7 @@ class Chapter:
             self.setData()
         if fileName:
             self.soup = BeautifulSoup(open(fileName))
+        self.soup.encode(formatter = "minimal")
         self.setData()
 
     def setData(self):
@@ -37,7 +38,7 @@ class Chapter:
         self.text_list = []
 
         for paragraph in chapter.findAll("p"):
-            text = paragraph.encode("UTF-8")
+            text = paragraph.encode(formatter="minimal")
             text.strip()
             self.text_list.append(text)
 
@@ -46,19 +47,13 @@ class Chapter:
 
     def setMetadata(self):
         tag = self.soup.find("meta", {"property": "og:title"})
-        self.title = tag["content"]
+        self.title = tag["content"].encode("UTF-8")
 
         index = self.title.find(" ")
-        self.arc = self.title[:index].strip()
+        self.arc = self.title[:index].strip().encode("UTF-8")
 
 
     def writeRawToFile(self, name, delimiter):
         f = open(name, "w")
         for paragraph in self.text_list:
             f.write(delimiter + paragraph)
-
-
-
-
-
-
