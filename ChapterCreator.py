@@ -2,6 +2,7 @@ __author__ = 'adamhammes'
 
 import urllib2
 from bs4 import BeautifulSoup
+import re
 
 class Chapter:
     def __init__(self, url = None, fileName = None):
@@ -46,11 +47,23 @@ class Chapter:
         self.text_list.pop(-1)
 
     def setMetadata(self):
+        arcList =  ["Gestation", "Insinuation", "Agitation", "Shell", "Hive",
+                    "Tangle", "Buzz", "Extermination", "Sentinel", "Parasite",
+                    "Infestation", "Plague", "Snare", "Prey", "Colony", "Monarch",
+                    "Migration", "Queen", "Scourge", "Chrysalis", "Imago", "Cell",
+                    "Drone", "Crushed", "Scarab", "Sting", "Extinction",
+                    "Cockroaches", "Venom"]
+
         tag = self.soup.find("meta", {"property": "og:title"})
         self.title = tag["content"].encode("UTF-8")
 
         index = self.title.find(" ")
-        self.arc = self.title[:index].strip()
+        str = self.title[:index]
+        if str == "Interlude":
+            arcNum = int(re.findall("\d+", self.title)[0]) -1
+            self.arc = arcList[arcNum]
+        else:
+            self.arc = str
 
 
     def writeRawToFile(self, name, delimiter):
