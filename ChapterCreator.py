@@ -37,7 +37,7 @@ class Chapter:
         self.text_list = []
 
         for paragraph in chapter.findAll("p"):
-            text = paragraph.getText().encode("UTF-8")
+            text = paragraph.encode("UTF-8")
             text.strip()
             self.text_list.append(text)
 
