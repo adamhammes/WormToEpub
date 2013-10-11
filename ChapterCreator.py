@@ -50,12 +50,11 @@ class Chapter:
         self.text_list.pop(-1)
 
     def setMetadata(self):
-        raw_title = self.soup.title.string
-        index = raw_title.index("|")
-        self.title = raw_title[:index-1]
+        tag = self.soup.find("meta", {"property": "og:title"})
+        self.title = tag["content"]
 
-        index = raw_title.index(" ")
-        self.arc = raw_title[:index]
+        index = self.title.find(" ")
+        self.arc = self.title[:index].strip()
 
 
     def writeRawToFile(self, name, delimiter):
