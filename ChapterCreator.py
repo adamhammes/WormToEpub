@@ -14,7 +14,7 @@ class Chapter:
             self.soup = BeautifulSoup(html)
             self.setData()
         if fileName:
-            self.soup = BeautifulSoup(open(name))
+            self.soup = BeautifulSoup(open(fileName))
         self.setData()
 
     def setData(self):
