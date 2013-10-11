@@ -1,31 +1,27 @@
 __author__ = 'adamhammes'
 
 import urllib2
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 
 class Chapter:
-
-
-    def __init__(self, url = None):
+    def __init__(self, url = None, fileName = None):
         """
         Constructs a Chapter from a URL
         """
-        if url is not None:
+        if url:
             r = urllib2.urlopen(url)
             html = r.read()
-            self.soup = BeautifulSoup(html, convertEntities=BeautifulSoup.HTML_ENTITIES)
+            self.soup = BeautifulSoup(html)
             self.setData()
-
-    def fromFileName(self, name):
-        self.soup = BeautifulSoup(open(name), convertEntities=BeautifulSoup.HTML_ENTITIES)
+        if fileName:
+            self.soup = BeautifulSoup(open(name))
         self.setData()
 
-
     def setData(self):
+        self.soup.prettify(formatter = "minimal")
         self.setText()
         self.setMetadata()
         self.setNextLink()
-
 
     def setNextLink(self):
         tag = self.soup.find("a", {"title": "Next Chapter"})
