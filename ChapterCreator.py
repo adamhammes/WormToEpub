@@ -29,7 +29,10 @@ class Chapter:
         tag = self.soup.find("a", {"title": "Next Chapter"})
         if not tag:
             tag = self.soup.find("link", {"rel": "next"})
-        self.nextLink = tag["href"]
+        if tag:
+            self.nextLink = tag["href"]
+        else:
+            self.nextLink = None
 
     def setText(self):
         self.textList = []
