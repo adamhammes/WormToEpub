@@ -34,6 +34,8 @@ class Chapter:
     def setText(self):
         self.textList = []
         article = self.soup.find("article")
+        for tag in article.findAll("a"):
+            tag.replaceWith(tag.text)
 
         for paragraph in article.findAll("p"):
             text = paragraph.encode("UTF-8")
