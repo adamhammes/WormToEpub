@@ -3,12 +3,11 @@ __author__ = 'adamhammes'
 import urllib2
 from bs4 import BeautifulSoup, SoupStrainer
 import re
-import lxml
 
 class Chapter:
     def __init__(self, url = None, fileName = None):
         """
-        Constructs a Chapter from a URL
+        Constructs a Chapter from a URL or file name
         """
         chunk = SoupStrainer(name = re.compile(r"article|meta|link"))
         if url:
@@ -34,8 +33,9 @@ class Chapter:
 
     def setText(self):
         self.textList = []
+        article = self.soup.find("article")
 
-        for paragraph in self.soup.findAll("p"):
+        for paragraph in article.findAll("p"):
             text = paragraph.encode("UTF-8")
             text.strip()
             self.textList.append(text)
